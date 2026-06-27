@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raipur-Bhilai Heavy Vehicle Dust Mitigation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">V</div>
+                <div class="brand-text">
+                    <h1>VEMT</h1>
+                    <span>Aero-Dust Control</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-btn active" id="btn-page1" onclick="switchPage(1)">
+                    <i data-lucide="activity"></i>
+                    <span>Page 1: Pain Diagnostics</span>
+                </button>
+                <button class="nav-btn" id="btn-page2" onclick="switchPage(2)">
+                    <i data-lucide="shield-check"></i>
+                    <span>Page 2: VEMT Solution</span>
+                </button>
+            </nav>
+
+            <div class="location-badge">
+                <i data-lucide="map-pin" class="pulse-icon"></i>
+                <div>
+                    <h4>Raipur-Bhilai Zone</h4>
+                    <p>Chhattisgarh, India</p>
+                </div>
+            </div>
+            
+            <div class="footer-note">
+                <p>System Local Time:</p>
+                <p id="system-time">2026-06-27 16:23</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Ticker -->
+            <header class="header">
+                <div class="header-title">
+                    <h2 id="page-title">Regional Air Quality & Pain Diagnostics</h2>
+                    <p id="page-subtitle">Mapping vehicle dust density, highway traffic delays, and regional health exposure</p>
+                </div>
+                <div class="quick-stats">
+                    <div class="quick-stat-card bad">
+                        <span class="label">Avg. Corridor AQI</span>
+                        <div class="value-container">
+                            <span class="value">342</span>
+                            <span class="trend"><i data-lucide="trending-up"></i> +14%</span>
+                        </div>
+                        <span class="subtext">Hazardous (Winter Peak)</span>
+                    </div>
+                    <div class="quick-stat-card">
+                        <span class="label">Heavy Vehicles / Day</span>
+                        <div class="value-container">
+                            <span class="value">8,450</span>
+                            <span class="trend text-neutral"><i data-lucide="truck"></i> Tippers</span>
+                        </div>
+                        <span class="subtext">Coal & Mineral Transport</span>
+                    </div>
+                    <div class="quick-stat-card warning">
+                        <span class="label">Fugitive Dust Outflow</span>
+                        <div class="value-container">
+                            <span class="value">1,690 t</span>
+                            <span class="trend"><i data-lucide="alert-triangle"></i> Loss</span>
+                        </div>
+                        <span class="subtext">Released Atmosphere/Month</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGE 1: PAIN DIAGNOSTICS & DEMOGRAPHICS -->
+            <section id="page-1" class="page-section active">
+                <div class="grid-layout-2">
+                    <!-- Left Column: Interactive Map -->
+                    <div class="card map-card">
+                        <div class="card-header">
+                            <div class="header-icon-title">
+                                <i data-lucide="map" class="text-primary"></i>
+                                <h3>Chhattisgarh & Industrial Corridor Hotspots</h3>
+                            </div>
+                            <span class="badge badge-accent">Interactive Map</span>
+                        </div>
+                        <div class="card-body map-body">
+                            <!-- Map Container -->
+                            <div class="map-wrapper">
+                                <!-- Chhattisgarh State Shape (Stylized SVG) -->
+                                <svg viewBox="0 0 400 600" class="cg-map-svg">
+                                    <!-- Outline of Chhattisgarh -->
+                                    <path d="M 180,20 
+                                             C 210,15 230,30 240,50 
+                                             C 250,70 270,80 290,95 
+                                             C 310,110 320,130 315,150 
+                                             C 310,170 330,195 320,210 
+                                             C 310,225 295,230 280,245 
+                                             C 265,260 280,290 270,310 
+                                             C 260,330 290,360 285,390 
+                                             C 280,420 295,445 270,470 
+                                             C 245,495 240,530 220,550 
+                                             C 200,570 190,590 170,585 
+                                             C 150,580 140,550 135,530 
+                                             C 130,510 110,480 120,460 
+                                             C 130,440 125,410 115,390 
+                                             C 105,370 100,340 105,320 
+                                             C 110,300 95,270 100,250 
+                                             C 105,230 130,220 125,200 
+                                             C 120,180 105,170 110,150 
+                                             C 115,130 135,115 140,90 
+                                             C 145,65 160,50 165,30 
+                                             Z" class="cg-boundary" />
+                                             
+                                    <!-- Focus Highlight of Raipur-Durg-Bhilai Region -->
+                                    <circle cx="185" cy="305" r="45" class="corridor-glow-ring" />
+                                    <circle cx="185" cy="305" r="25" class="corridor-highlight-area" />
+                                    
+                                    <!-- Connection Grid line -->
+                                    <line x1="185" y1="305" x2="320" y2="400" class="connector-line" />
+                                    
+                                    <!-- Hotspot Nodes -->
+                                    <!-- Urla Industrial -->
+                                    <circle cx="190" cy="290" r="7" class="hotspot-node bad-pulse" onclick="showHotspot('urla')" />
+                                    <!-- Bhanpuri -->
+                                    <circle cx="198" cy="285" r="6" class="hotspot-node bad-pulse" onclick="showHotspot('bhanpuri')" />
+                                    <!-- Tatibandh Junction -->
+                                    <circle cx="180" cy="300" r="9" class="hotspot-node worst-pulse" onclick="showHotspot('tatibandh')" />
+                                    <!-- Power House (Bhilai) -->
+                                    <circle cx="165" cy="312" r="8" class="hotspot-node worst-pulse" onclick="showHotspot('powerhouse')" />
+                                    <!-- Nehru Nagar (Bhilai) -->
+                                    <circle cx="155" cy="318" r="6" class="hotspot-node bad-pulse" onclick="showHotspot('nehrunagar')" />
+                                    
+                                    <!-- Text Labels on Map -->
+                                    <text x="185" y="365" class="map-label">Raipur-Durg Belt</text>
+                                    <text x="200" y="80" class="map-label-small">Surguja Coalfields</text>
+                                    <text x="210" y="470" class="map-label-small">Bastar Minerals</text>
+                                </svg>
+                                
+                                <div class="map-overlay-instructions">
+                                    <i data-lucide="info"></i> Click the flashing red hotspot nodes to diagnose pain points.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Regional Diagnostics / Demographics -->
+                    <div class="card details-card" id="diagnostics-panel">
+                        <div class="card-header">
+                            <div class="header-icon-title">
+                                <i data-lucide="bar-chart-2" class="text-primary"></i>
+                                <h3>Hotspot Diagnostic Report</h3>
+                            </div>
+                            <span class="badge badge-error" id="hotspot-name">Tatibandh Transit Corridor</span>
+                        </div>
+                        <div class="card-body">
+                            <!-- Hotspot Details Grid -->
+                            <div class="hotspot-metrics-grid">
+                                <div class="metric-box bg-dark">
+                                    <span class="title">Peak Ambient AQI</span>
+                                    <span class="value text-worst" id="hs-aqi">412</span>
+                                    <span class="desc">PM2.5: 290 µg/m³ (WHO Limit: 15)</span>
+                                </div>
+                                <div class="metric-box bg-dark">
+                                    <span class="title">Avg. Daily Congestion Delay</span>
+                                    <span class="value text-warning" id="hs-delay">42 mins</span>
+                                    <span class="desc">For regular commuting vehicles</span>
+                                </div>
+                                <div class="metric-box bg-dark">
+                                    <span class="title">Daily Dust Fall Rate</span>
+                                    <span class="value text-warning" id="hs-dustfall">85 g/m²/day</span>
+                                    <span class="desc">Settling along transport margins</span>
+                                </div>
+                                <div class="metric-box bg-dark">
+                                    <span class="title">Exposed Population</span>
+                                    <span class="value text-white" id="hs-pop">285,000+</span>
+                                    <span class="desc">Direct exposure corridor radius (2km)</span>
+                                </div>
+                            </div>
+
+                            <!-- Demographics & Health impact -->
+                            <div class="demographics-section">
+                                <h4>Demographic Pain Points & Health Risk Metrics</h4>
+                                <div class="health-trend-bar">
+                                    <div class="progress-info">
+                                        <span>Respiratory Outpatient Increase (Past 3 Years)</span>
+                                        <span class="percentage text-worst" id="hs-respiratory-stat">+38.5%</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div class="progress-fill worst" id="hs-respiratory-bar" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                <div class="health-trend-bar">
+                                    <div class="progress-info">
+                                        <span>Pediatric Asthma Incidence in Corridor Schools</span>
+                                        <span class="percentage text-warning" id="hs-asthma-stat">12.4%</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div class="progress-fill warning" id="hs-asthma-bar" style="width: 62%;"></div>
+                                    </div>
+                                </div>
+                                <div class="health-trend-bar">
+                                    <div class="progress-info">
+                                        <span>Daily Commuter Micro-PM2.5 Exposure Dose</span>
+                                        <span class="percentage text-worst" id="hs-exposure-stat">8.4x safe limit</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div class="progress-fill worst" id="hs-exposure-bar" style="width: 88%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vehicle Outflow breakdown -->
+                            <div class="outflow-breakdown">
+                                <h4>Vehicle Dust Outflow Characteristics</h4>
+                                <div class="outflow-pills">
+                                    <div class="pill"><strong>Load Type:</strong> <span id="hs-load">Iron Ore Fines</span></div>
+                                    <div class="pill"><strong>Avg. Speed:</strong> <span id="hs-speed">48 km/h</span></div>
+                                    <div class="pill"><strong>Dust Release Rate:</strong> <span id="hs-releaserate">420 g/min/truck</span></div>
+                                    <div class="pill"><strong>Major Vehicle Class:</strong> <span id="hs-class">16-Wheel Tippers</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 1 Bottom: Highway Traffic & traveling Pain Points -->
+                <div class="card table-card">
+                    <div class="card-header">
+                        <div class="header-icon-title">
+                            <i data-lucide="clock" class="text-primary"></i>
+                            <h3>Raipur-Bhilai Industrial Transport Corridor Metrics</h3>
+                        </div>
+                        <span class="badge">NH-53 Transit Diagnostics</span>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Corridor Segment</th>
+                                    <th>Heavy Vehicle Load/Day</th>
+                                    <th>Peak Traffic Delay</th>
+                                    <th>Road Margin PM10 Density</th>
+                                    <th>Impact Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Urla Industrial Area Outer Link</strong></td>
+                                    <td>3,120 Tippers</td>
+                                    <td>28 mins</td>
+                                    <td>485 µg/m³</td>
+                                    <td><span class="status-indicator bad">Critical</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bhanpuri Iron Slag Transport Highway</strong></td>
+                                    <td>2,450 Tippers</td>
+                                    <td>22 mins</td>
+                                    <td>410 µg/m³</td>
+                                    <td><span class="status-indicator bad">Severe</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tatibandh Ring Road Bypass Junction</strong></td>
+                                    <td>4,200 Tippers</td>
+                                    <td>45 mins</td>
+                                    <td>580 µg/m³</td>
+                                    <td><span class="status-indicator worst">Extreme</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bhilai Steel Plant Gate - Power House Road</strong></td>
+                                    <td>3,850 Tippers</td>
+                                    <td>32 mins</td>
+                                    <td>512 µg/m³</td>
+                                    <td><span class="status-indicator worst">Extreme</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nehru Nagar Bypass Intersector</strong></td>
+                                    <td>1,890 Tippers</td>
+                                    <td>18 mins</td>
+                                    <td>310 µg/m³</td>
+                                    <td><span class="status-indicator warning">Moderate-High</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE 2: VEMT SOLUTION & BEFORE/AFTER NUMBERS -->
+            <section id="page-2" class="page-section">
+                <div class="grid-layout-2">
+                    <!-- Left Column: The VEMT Retrofit Interactive Model -->
+                    <div class="card tech-card">
+                        <div class="card-header">
+                            <div class="header-icon-title">
+                                <i data-lucide="cpu" class="text-emerald"></i>
+                                <h3>VEMT Retrofitting Assembly & Materials</h3>
+                            </div>
+                            <span class="badge badge-success">Engineering Spec</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="tech-container">
+                                <!-- Vector Schematic of Truck and Retrofitted tail-end -->
+                                <div class="truck-schematic">
+                                    <svg viewBox="0 0 500 280" class="truck-svg">
+                                        <!-- Truck Cabin -->
+                                        <path d="M 60,180 L 100,180 L 120,140 L 120,110 L 100,100 L 60,100 Z" class="cabin-body" />
+                                        <rect x="70" y="110" width="30" height="25" rx="3" class="cabin-window" />
+                                        <rect x="35" y="145" width="25" height="35" class="cabin-nose" />
+                                        <circle cx="45" cy="180" r="8" class="cabin-headlight" />
+                                        
+                                        <!-- Truck Bed (Dumper body) -->
+                                        <polygon points="130,90 350,90 350,180 130,180" class="dumper-body" />
+                                        
+                                        <!-- Wheels -->
+                                        <circle cx="90" cy="205" r="22" class="wheel-outer" />
+                                        <circle cx="90" cy="205" r="8" class="wheel-inner" />
+                                        
+                                        <circle cx="170" cy="205" r="22" class="wheel-outer" />
+                                        <circle cx="170" cy="205" r="8" class="wheel-inner" />
+                                        <circle cx="218" cy="205" r="22" class="wheel-outer" />
+                                        <circle cx="218" cy="205" r="8" class="wheel-inner" />
+                                        
+                                        <circle cx="295" cy="205" r="22" class="wheel-outer" />
+                                        <circle cx="295" cy="205" r="8" class="wheel-inner" />
+                                        <circle cx="343" cy="205" r="22" class="wheel-outer" />
+                                        <circle cx="343" cy="205" r="8" class="wheel-inner" />
+
+                                        <!-- RETROFIT COMPONENTS (CLICKABLE & HIGHLIGHTED) -->
+                                        <!-- 1. Automated Top Cover Tarp (Hermetic Seal) -->
+                                        <path d="M 125,87 L 355,87" class="retrofit-part top-tarp active-tarp" onclick="selectTech('tarp')" />
+                                        <!-- 2. Aerodynamic Vortex Diffuser (Rear FRP shroud) -->
+                                        <path d="M 350,90 Q 385,135 350,180 L 360,180 Q 395,135 360,90 Z" class="retrofit-part vortex-diffuser active-diffuser" onclick="selectTech('diffuser')" />
+                                        <!-- 3. Electrostatic Mist Bar (Tailgate sprayer) -->
+                                        <line x1="365" y1="130" x2="365" y2="185" class="retrofit-part mist-bar active-mist" onclick="selectTech('mistbar')" />
+                                        <!-- Glowing charged mist spray (animated) -->
+                                        <g class="charged-mist-particles">
+                                            <circle cx="380" cy="140" r="2" class="mist-droplet" />
+                                            <circle cx="395" cy="150" r="1.5" class="mist-droplet" />
+                                            <circle cx="385" cy="165" r="2" class="mist-droplet" />
+                                            <circle cx="400" cy="170" r="1" class="mist-droplet" />
+                                            <circle cx="375" cy="180" r="2.5" class="mist-droplet" />
+                                        </g>
+                                        
+                                        <!-- 4. IoT Telematics Unit & PM Sensor -->
+                                        <rect x="330" y="165" width="15" height="12" rx="2" class="retrofit-part iot-module active-iot" onclick="selectTech('iot')" />
+                                    </svg>
+                                    
+                                    <div class="tech-labels-overlay">
+                                        <span class="tech-hotspot-label thl-tarp" onclick="selectTech('tarp')">1. Electromagnetic Cover</span>
+                                        <span class="tech-hotspot-label thl-diffuser" onclick="selectTech('diffuser')">2. Aerodynamic Shroud</span>
+                                        <span class="tech-hotspot-label thl-mist" onclick="selectTech('mistbar')">3. Electrostatic Mist</span>
+                                        <span class="tech-hotspot-label thl-iot" onclick="selectTech('iot')">4. IoT PM Sensor</span>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Specs of Selected Retrofit Part -->
+                                <div class="tech-specs-box bg-dark" id="tech-specs-box">
+                                    <h4 id="tech-title">Select a retrofitted VEMT part above to inspect specifications...</h4>
+                                    <div class="tech-details-content" id="tech-details-content">
+                                        <p class="neutral-info">Clicking any highlighted component on the truck schematic reveals details regarding its composite materials, engineering parameters, and cost structure.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Comparative Metrics (BEFORE VS AFTER) -->
+                    <div class="card comparison-card">
+                        <div class="card-header">
+                            <div class="header-icon-title">
+                                <i data-lucide="arrow-left-right" class="text-primary"></i>
+                                <h3>Optimization Results (Existing vs. VEMT Implemented)</h3>
+                            </div>
+                            <span class="badge badge-success">Pre- vs. Post-Retrofit</span>
+                        </div>
+                        <div class="card-body">
+                            <!-- Side-by-side numerical comparison list -->
+                            <div class="comparison-list">
+                                <div class="comp-row">
+                                    <div class="comp-label">
+                                        <h4>Fugitive Dust Emission Loss</h4>
+                                        <p>Mineral load blown out of dumper cargo bed during transit (g/km)</p>
+                                    </div>
+                                    <div class="comp-values">
+                                        <div class="val-before">
+                                            <span class="num">3,200</span>
+                                            <span class="unit">g/km</span>
+                                        </div>
+                                        <div class="val-arrow"><i data-lucide="arrow-right"></i></div>
+                                        <div class="val-after">
+                                            <span class="num">96</span>
+                                            <span class="unit">g/km</span>
+                                        </div>
+                                    </div>
+                                    <div class="comp-badge badged-green">-97.0%</div>
+                                </div>
+
+                                <div class="comp-row">
+                                    <div class="comp-label">
+                                        <h4>Trailing PM2.5 Micro-Climate AQI</h4>
+                                        <p>Average PM2.5 within 10 meters of vehicle rear bumper at 50 km/h</p>
+                                    </div>
+                                    <div class="comp-values">
+                                        <div class="val-before">
+                                            <span class="num">420</span>
+                                            <span class="unit">AQI</span>
+                                        </div>
+                                        <div class="val-arrow"><i data-lucide="arrow-right"></i></div>
+                                        <div class="val-after">
+                                            <span class="num">34</span>
+                                            <span class="unit">AQI</span>
+                                        </div>
+                                    </div>
+                                    <div class="comp-badge badged-green">-91.9%</div>
+                                </div>
+
+                                <div class="comp-row">
+                                    <div class="comp-label">
+                                        <h4>Onboard Water Spray Consumption</h4>
+                                        <p>Water rate required to capture respirable dust (liters/hour)</p>
+                                    </div>
+                                    <div class="comp-values">
+                                        <div class="val-before">
+                                            <span class="num">150</span>
+                                            <span class="unit">L/h</span>
+                                        </div>
+                                        <div class="val-arrow"><i data-lucide="arrow-right"></i></div>
+                                        <div class="val-after">
+                                            <span class="num">18</span>
+                                            <span class="unit">L/h</span>
+                                        </div>
+                                    </div>
+                                    <div class="comp-badge badged-green">-88.0%</div>
+                                </div>
+
+                                <div class="comp-row">
+                                    <div class="comp-label">
+                                        <h4>Average Highway Dust Spill Mass</h4>
+                                        <p>Mineral cargo wasted along road margin per truck per year</p>
+                                    </div>
+                                    <div class="comp-values">
+                                        <div class="val-before">
+                                            <span class="num">18.4</span>
+                                            <span class="unit">tonnes</span>
+                                        </div>
+                                        <div class="val-arrow"><i data-lucide="arrow-right"></i></div>
+                                        <div class="val-after">
+                                            <span class="num">0.5</span>
+                                            <span class="unit">tonnes</span>
+                                        </div>
+                                    </div>
+                                    <div class="comp-badge badged-green">-97.2%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page 2 Bottom: ROI Calculator and Regional Impact simulation -->
+                <div class="grid-layout-2">
+                    <!-- Dynamic Calculator Card -->
+                    <div class="card calc-card">
+                        <div class="card-header">
+                            <div class="header-icon-title">
+                                <i data-lucide="calculator" class="text-emerald"></i>
+                                <h3>Economic ROI & Fleet Payback Calculator</h3>
+                            </div>
+                            <span class="badge badge-accent">Interactive Calc</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="calc-inputs-grid">
+                                <div class="input-group">
+                                    <label for="calc-fleet-size">Fleet Size (Dumper Trucks): <span id="val-fleet-size">50</span></label>
+                                    <input type="range" id="calc-fleet-size" min="5" max="500" value="50" oninput="calculateROI()">
+                                </div>
+                                <div class="input-group">
+                                    <label for="calc-avg-dist">Avg. Cargo Distance / Trip (km): <span id="val-avg-dist">40</span></label>
+                                    <input type="range" id="calc-avg-dist" min="10" max="250" value="40" oninput="calculateROI()">
+                                </div>
+                                <div class="input-group">
+                                    <label for="calc-ore-value">Avg. Ore / Coal Market Value (₹/tonne): <span id="val-ore-value">₹3,500</span></label>
+                                    <input type="range" id="calc-ore-value" min="1000" max="15000" step="250" value="3500" oninput="calculateROI()">
+                                </div>
+                                <div class="input-group">
+                                    <label for="calc-trips">Trips / Truck / Month: <span id="val-trips">60</span></label>
+                                    <input type="range" id="calc-trips" min="10" max="150" value="60" oninput="calculateROI()">
+                                </div>
+                            </div>
+
+                            <div class="calc-results bg-dark">
+                                <div class="res-box">
+                                    <span class="title">Initial VEMT Fleet Setup Cost</span>
+                                    <span class="value" id="roi-capital">₹42,50,000</span>
+                                </div>
+                                <div class="res-box">
+                                    <span class="title">Cargo Spillage Saved / Year</span>
+                                    <span class="value text-success" id="roi-spillage">₹31,50,000</span>
+                                </div>
+                                <div class="res-box">
+                                    <span class="title">Est. Fleet Payback Period</span>
+                                    <span class="value text-success" id="roi-payback">10.4 Months</span>
+                                </div>
+                                <div class="res-box">
+                                    <span class="title">Carbon Credit Potential / Year</span>
+                                    <span class="value text-primary" id="roi-carbon">₹8,40,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regional Ambient Impact Chart -->
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <div class="header-icon-title">
+                                <i data-lucide="trending-down" class="text-primary"></i>
+                                <h3>Simulated Ambient PM10 Reduction in Raipur-Bhilai Corridor</h3>
+                            </div>
+                            <span class="badge">Environmental Forecast</span>
+                        </div>
+                        <div class="card-body chart-body">
+                            <canvas id="ambientChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Inject app.js -->
+    <script src="app.js"></script>
+</body>
+</html>
