@@ -7,12 +7,6 @@ Aero-Dust Control is a web-based dashboard for visualizing dust mitigation insig
 Open the shareable preview here:
 https://cement-cia-herbal-tutorial.trycloudflare.com
 
-Open the local preview here:
-http://127.0.0.1:8000/index.html
-
-GitHub Pages site:
-https://hari2004325.github.io/Aero-Dust-Control/
-
 ## Project Files
 
 - index.html — main page structure
